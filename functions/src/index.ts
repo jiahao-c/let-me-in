@@ -1,12 +1,33 @@
 import * as functions from "firebase-functions";
 import fetch from "node-fetch-commonjs";
-import { CourseInfo, get_url, parseResult, sendTG } from "./util";
+import { CourseInfo, url, parseResult, sendTG } from "./util";
 
-const url = get_url(
-  functions.config().course.number,
-  functions.config().course.term
-);
-export const findSeat = functions.https.onRequest((request, response) => {
+export const auto_find = functions.pubsub
+  .schedule("every 5 minutes")
+  .onRun(() => {
+    console.log(url);
+    fetch(url)
+      .then((result) => result.text())
+      .then((result) => parseResult(result))
+      .then((course: CourseInfo) => {
+        console.log(course);
+        if (course.availableSeats > 0) {
+          sendTG(
+            `${course.availableSeats} seats available for ${course.courseNumber} ${course.title}`
+          );
+        } else if (course.avalibleWaitList > 0) {
+          sendTG(
+            `${course.avalibleWaitList} seats available on waitlist for ${course.courseNumber} ${course.title}`
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    return null;
+  });
+
+export const manual_find = functions.https.onRequest((request, response) => {
   console.log(url);
   fetch(url)
     .then((result) => result.text())

@@ -21,16 +21,13 @@ function get_time_verifier() {
 }
 
 //courseNumber should be SUBJ-123
-export function get_url(courseNumber: string, term: string) {
-  return (
-    "https://vsb.mcgill.ca/vsb/getclassdata.jsp?term=" +
-    term +
-    "&course_1_0=" +
-    courseNumber +
-    "&rq_1_0=null&nouser=1" +
-    get_time_verifier()
-  );
-}
+export const url =
+  "https://vsb.mcgill.ca/vsb/getclassdata.jsp?term=" +
+  config().course.term +
+  "&course_1_0=" +
+  config().course.number +
+  "&rq_1_0=null&nouser=1" +
+  get_time_verifier();
 
 export function parseResult(xml: string): CourseInfo {
   const $ = cheerio.load(xml);
