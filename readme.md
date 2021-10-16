@@ -2,7 +2,7 @@
 
 Yet anther Find A Seat for mcgill students, but:
 
-- Runs on Firebase
+- Runs on Firebase as a cloud function
 - Can be self-hosted for free
 - Sends notification to Telegram (free & fast)
 
@@ -47,13 +47,16 @@ firebase functions:config:set course.term=[...]
 
 # How to Use
 
-There are two cloud functions, triggered differently.
+There are two cloud functions. The only difference is the trigger.
 
-1. manual_find
-   curl a url to check it for you
+1. `auto_find`
 
-2. auto_find
    Scheduled to run every five minutes in the background to check for you
+   
+2. `manual_find`
+   
+   You can curl a url to make it check it for you
+
 
 When availability is found, the cloud function will send you a Telegram message.
 
