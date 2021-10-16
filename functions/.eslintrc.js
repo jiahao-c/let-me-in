@@ -33,6 +33,5 @@ module.exports = {
       "double"
     ],
     "import/no-unresolved": 0,
-    "no-non-null-assertion":0
   },
 }

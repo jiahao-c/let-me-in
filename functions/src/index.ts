@@ -1,11 +1,26 @@
 import * as functions from "firebase-functions";
 import fetch from "node-fetch-commonjs";
-import { CourseInfo, url, parseResult, sendTG } from "./util";
+import {
+  CourseInfo,
+  course_number,
+  course_term,
+  get_time_verifier,
+  parseResult,
+  sendTG,
+} from "./util";
 
 export const auto_find = functions
   .region("northamerica-northeast1")
   .pubsub.schedule("every 5 minutes")
   .onRun(() => {
+    const url =
+      "https://vsb.mcgill.ca/vsb/getclassdata.jsp?term=" +
+      course_term +
+      "&course_1_0=" +
+      course_number +
+      "&rq_1_0=null&nouser=1" +
+      get_time_verifier();
+
     console.log(url);
     fetch(url)
       .then((result) => result.text())

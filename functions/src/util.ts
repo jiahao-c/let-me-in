@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-non-null-assertion */
 import * as cheerio from "cheerio";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -13,22 +14,12 @@ export interface CourseInfo {
 }
 
 // for time to be be validated
-function get_time_verifier() {
+export function get_time_verifier() {
   const time = Date.now();
   const updated_time = Math.floor(time / 60000) % 1000;
   const verify = (updated_time % 3) + (updated_time % 19) + (updated_time % 42);
   return "&t=" + updated_time.toString() + "&e=" + verify.toString();
 }
-
-//courseNumber should be SUBJ-123
-export const url =
-  "https://vsb.mcgill.ca/vsb/getclassdata.jsp?term=" +
-  config().course.term +
-  "&course_1_0=" +
-  config().course.number +
-  "&rq_1_0=null&nouser=1" +
-  get_time_verifier();
-
 export function parseResult(xml: string): CourseInfo {
   const $ = cheerio.load(xml);
   return {
@@ -48,3 +39,6 @@ export function sendTG(message: string) {
     config().telegram.chat_id
   );
 }
+
+export const course_term = config().course.term;
+export const course_number = config().course.number;
