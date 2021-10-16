@@ -17,6 +17,7 @@ If you don't use Telegram, you can easily modify the code to send to
 1. Create a firebase app
 2. Use this repo as a cloud function
 3. Set Environment Variables
+4. Set Default GCP resource location to northamerica-northeast1 in Firebase Project Settings
 
 ```
 firebase functions:config:set telegram.bot_token=[...]
