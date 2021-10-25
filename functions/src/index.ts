@@ -4,6 +4,7 @@ import {
   CourseInfo,
   course_number,
   course_term,
+  get_epoch_time,
   get_time_verifier,
   parseResult,
   sendTG,
@@ -19,8 +20,8 @@ export const auto_find = functions
       "&course_1_0=" +
       course_number +
       "&rq_1_0=null&nouser=1" +
-      get_time_verifier();
-
+      get_time_verifier() +
+      get_epoch_time();
     console.log(url);
     fetch(url)
       .then((result) => result.text())

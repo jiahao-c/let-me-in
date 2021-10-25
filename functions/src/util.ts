@@ -20,6 +20,11 @@ export function get_time_verifier() {
   const verify = (updated_time % 3) + (updated_time % 19) + (updated_time % 42);
   return "&t=" + updated_time.toString() + "&e=" + verify.toString();
 }
+
+export function get_epoch_time() {
+  return "&_=" + Math.floor(Date.now() / 1000).toString();
+}
+
 export function parseResult(xml: string): CourseInfo {
   const $ = cheerio.load(xml);
   return {
