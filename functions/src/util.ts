@@ -22,7 +22,7 @@ export function get_time_verifier() {
 }
 
 export function get_epoch_time() {
-  return "&_=" + Math.floor(Date.now() / 1000).toString();
+  return "&_=" + Date.now().toString();
 }
 
 export function parseResult(xml: string): CourseInfo {
